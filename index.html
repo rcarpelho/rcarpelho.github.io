@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Sender</title>
+</head>
+<body>
+    <h1>Email Sender</h1>
+    <form id="email-form">
+        <label for="recipient">Recipient Email:</label>
+        <input type="email" id="recipient" name="recipient" required><br><br>
+
+        <label for="subject">Email Subject:</label>
+        <input type="text" id="subject" name="subject" required><br><br>
+
+        <label for="message">Email Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+        <input type="submit" value="Send Email">
+    </form>
+
+    <script>
+        document.getElementById("email-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const recipient = document.getElementById("recipient").value;
+            const subject = document.getElementById("subject").value;
+            const message = document.getElementById("message").value;
+
+            // Call the Netlify Function to send the email
+            fetch("/.netlify/functions/sendEmail", {
+                method: "POST",
+                body: JSON.stringify({ recipient, subject, message }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                });
+        });
+    </script>
+</body>
+</html>
