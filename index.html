@@ -5,37 +5,24 @@
 </head>
 <body>
     <h1>Email Sender</h1>
-    <form id="email-form">
-        <label for="recipient">Recipient Email:</label>
-        <input type="email" id="recipient" name="recipient" required><br><br>
+<form
+  action="https://formspree.io/f/mleyzrgy"
+  method="POST"
+>
+  <label for="tech">
+    Entrada/Saída:  </label>
+    <select name="tech" id="tech">
+  <option value="entrada">Entrada</option>
+  <option value="saida">Saída</option>
+</select>
 
-        <label for="subject">Email Subject:</label>
-        <input type="text" id="subject" name="subject" required><br><br>
+  <label>
+    Técnico:
+    <textarea name="tecnico"></textarea>
+  </label>
 
-        <label for="message">Email Message:</label>
-        <textarea id="message" name="message" rows="4" required></textarea><br><br>
-
-        <input type="submit" value="Send Email">
-    </form>
-
-    <script>
-        document.getElementById("email-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const recipient = document.getElementById("recipient").value;
-            const subject = document.getElementById("subject").value;
-            const message = document.getElementById("message").value;
-
-            // Call the Netlify Function to send the email
-            fetch("/.netlify/functions/sendEmail", {
-                method: "POST",
-                body: JSON.stringify({ recipient, subject, message }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    alert(data.message);
-                });
-        });
-    </script>
+  <button type="submit">Send</button>
+</form>
 </body>
 </html>
+
